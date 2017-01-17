@@ -1,0 +1,78 @@
+Steps to reproduce
+
+
+DEPLOY CONSOLE
+
+Create an apache2 server
+	Use Ubuntu 16.04.1 LTS
+	Install apache2
+	Install php5
+	Install mysql
+	Upload console script to the web directory (/var/www/) of your server
+
+Create new mysql db called "console"
+Create user "console", give all permissions to db "console".
+Edit "includes/dbConnect.php", change line 21 ($this->PASSWORD = "...";) to db user "console"'s password
+Import "console.sql" to add structure to db
+
+
+INSTALL DESIGN TOOLS AND CREATE BOOKS
+
+Download the Pubbly design tools
+Install or extract.
+Launch pubbly.exe
+Create a new interactive book (help section built into the tools)
+Go to asset manager and specify which assets are static and variable
+Save book as a parent
+
+
+UPLOAD TO CONSOLE
+
+Go to your web console.
+Login or create new user account
+Go to "series" section of console. 
+Upload the zip file created from design tools
+Create children from parent book
+Swap out variable assets to make duplicate books
+
+Go to "unit" section of console.
+Create a school, subjects, levels and units.
+Edit your units, stitch pages from child books.
+
+Go to "school" section of console.
+Decide on icons, colors, etc.
+Click "prep"
+School has been created, resides in "html/downloads/(schoolname)_zip"
+
+
+BUILD APK
+
+Install NodeJS.
+Install Cordova.
+
+> cordova create schoolHouse com.CCI.schoolHouse schoolHouse
+> cd schoolHouse
+> cordova platform add android --save
+> cordova plugin add cordova-plugin-camera
+> cordova plugin add cordova-plugin-audio-recorder-api
+> cordova plugin add cordova-plugin-file
+
+Empty schoolHouse/www/ folder.
+Clone schoolHouse repo into schoolHouse/www/ folder.
+Add one of our premade schools to the schoolHouse/www/school/ folder.
+
+OR
+
+Add a newly created school (download from console, extract zip files to schoolHouse/www/school/ folder).
+
+> cordova build android
+	(takes 15 minutes depending)
+
+	
+Use android make_ext4fs command on linux machine to build userdata.img for fastboot flash.
+
+OR
+
+Connect tablet, tranfer APK.
+On tablet, allow instalation of apps from unknown sources.
+Install APK.
